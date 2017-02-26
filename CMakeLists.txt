@@ -67,6 +67,23 @@ target_link_libraries(01-CreateWindow
 set_target_properties(01-CreateWindow PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/01-CreateWindow/")
 create_target_launcher(01-CreateWindow WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/01-CreateWindow/")
 
+# Tutorial 2
+add_executable(02-Triangle 
+	02-Triangle/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	
+	02-Triangle/SimpleFragmentShader.fragmentshader
+	02-Triangle/SimpleVertexShader.vertexshader
+)
+target_link_libraries(02-Triangle
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(02-Triangle PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/02-Triangle/")
+create_target_launcher(02-Triangle WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/02-Triangle/")
+create_default_target_launcher(02-Triangle WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/02-Triangle/") 
+
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
 SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$" )
@@ -77,7 +94,10 @@ add_custom_command(
    TARGET 01-CreateWindow POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/01-CreateWindow${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/tutorial01_first_window/"
 )
-
+add_custom_command(
+   TARGET 02-Triangle POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/02-Triangle${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/02-Triangle/"
+)
 
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
