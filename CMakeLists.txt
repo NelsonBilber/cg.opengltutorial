@@ -84,6 +84,24 @@ set_target_properties(02-Triangle PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD
 create_target_launcher(02-Triangle WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/02-Triangle/")
 create_default_target_launcher(02-Triangle WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/02-Triangle/") 
 
+# Tutorial 3
+add_executable(03-Matrices 
+	03-Matrices/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	
+	03-Matrices/SimpleFragmentShader.fragmentshader
+	03-Matrices/SimpleVertexShader.vertexshader
+)
+target_link_libraries(03-Matrices
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(03-Matrices PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/03-Matrices/")
+create_target_launcher(03-Matrices WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/03-Matrices/")
+create_default_target_launcher(03-Matrices WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/03-Matrices/") 
+
+
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
 SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$" )
@@ -97,6 +115,10 @@ add_custom_command(
 add_custom_command(
    TARGET 02-Triangle POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/02-Triangle${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/02-Triangle/"
+)
+add_custom_command(
+   TARGET 03-Matrices POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/03-Matrices${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/03-Matrices/"
 )
 
 
