@@ -90,8 +90,8 @@ add_executable(03-Matrices
 	common/shader.cpp
 	common/shader.hpp
 	
-	03-Matrices/SimpleFragmentShader.fragmentshader
-	03-Matrices/SimpleVertexShader.vertexshader
+	03-Matrices/SingleColor.fragmentshader
+	03-Matrices/SimpleTransform.vertexshader
 )
 target_link_libraries(03-Matrices
 	${ALL_LIBS}

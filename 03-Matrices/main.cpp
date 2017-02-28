@@ -7,7 +7,7 @@
 #include <glfw3.h>
 //GLM
 #include <glm/glm.hpp>
-
+#include <glm/gtc/matrix_transform.hpp>
 #include <common/shader.hpp>
 
 using namespace glm;
@@ -29,7 +29,7 @@ int main(){
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
-    window = glfwCreateWindow(1024, 768, "Tutorial 01", NULL, NULL);
+    window = glfwCreateWindow(1024, 768, "Tutorial 03 - Matrices", NULL, NULL);
     if(window == NULL){
         fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
         getchar();
@@ -59,19 +59,39 @@ int main(){
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
     
-    //1.load shader files
+    //Load shader files
     //create and compile GLSL program from the shaders
-    GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader",
-                                   "SimpleFragmentShader.fragmentshader" );
+    GLuint programID = LoadShaders( "SimpleTransform.vertexshader",
+                                   "SingleColor.fragmentshader" );
     
-    //2. define vertex
+    // Get a handle for our "MVP" uniform
+    GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+    
+    // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
+    glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+    // Or, for an ortho camera :
+    //glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f); // In world coordinates
+    
+    // Camera matrix
+    glm::mat4 View       = glm::lookAt(
+                                       glm::vec3(4,3,3), // Camera is at (4,3,3), in World Space
+                                       glm::vec3(0,0,0), // and looks at the origin
+                                       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+                                       );
+    // Model matrix : an identity matrix (model will be at the origin)
+    glm::mat4 Model      = glm::mat4(1.0f);
+    // Our ModelViewProjection : multiplication of our 3 matrices
+    glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
+    
+    
+    //Define vertex
     static const GLfloat g_vertex_buffer_data[] = {
         -1.0f, -1.0f, 0.0f,
         1.0f, -1.0f, 0.0f,
         0.0f,  1.0f, 0.0f,
     };
     
-    //3. create a buffer os vertex
+    //Create a buffer os vertex
     GLuint vertexbuffer;
     glGenBuffers(1, &vertexbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -86,8 +106,12 @@ int main(){
         //use shader
         glUseProgram(programID);
         
-        //4. apply buffer vertex
-        // 1rst attribute buffer : vertices
+        //send our tranformation to the currently bound shader
+        //in the "MVP" uniform
+        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+        
+        //Apply buffer vertex
+        //1rst attribute buffer : vertices
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
         glVertexAttribPointer(
