@@ -101,6 +101,24 @@ set_target_properties(03-Matrices PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD
 create_target_launcher(03-Matrices WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/03-Matrices/")
 create_default_target_launcher(03-Matrices WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/03-Matrices/") 
 
+# Tutorial 4
+add_executable(04-ColoredCube 
+	04-ColoredCube/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	
+	04-ColoredCube/ColorFragmentShader.fragmentshader
+	04-ColoredCube/TransformVertexShader.vertexshader
+)
+target_link_libraries(04-ColoredCube
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(04-ColoredCube PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/04-ColoredCube/")
+create_target_launcher(04-ColoredCube WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/04-ColoredCube/")
+create_default_target_launcher(04-ColoredCube WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/04-ColoredCube/") 
+
+
 
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
@@ -119,6 +137,10 @@ add_custom_command(
 add_custom_command(
    TARGET 03-Matrices POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/03-Matrices${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/03-Matrices/"
+)
+add_custom_command(
+   TARGET 04-ColoredCube POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/04-ColoredCube${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/04-ColoredCube/"
 )
 
 
