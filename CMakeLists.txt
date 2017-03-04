@@ -119,6 +119,24 @@ create_target_launcher(04-ColoredCube WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_
 create_default_target_launcher(04-ColoredCube WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/04-ColoredCube/") 
 
 
+# Tutorial 5
+add_executable(05-TextureCube
+	05-TextureCube/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/texture.cpp
+	common/texture.hpp
+	
+	05-TextureCube/TransformVertexShader.vertexshader
+	05-TextureCube/TextureFragmentShader.fragmentshader
+)
+target_link_libraries(05-TextureCube
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(05-TextureCube PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/05-TextureCube/")
+create_target_launcher(05-TextureCube WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/05-TextureCube/")
+
 
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
@@ -142,6 +160,11 @@ add_custom_command(
    TARGET 04-ColoredCube POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/04-ColoredCube${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/04-ColoredCube/"
 )
+add_custom_command(
+   TARGET 05-TextureCube POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/05-TextureCube${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/05-TextureCube/"
+)
+
 
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
