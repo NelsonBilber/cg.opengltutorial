@@ -339,6 +339,31 @@ set_target_properties(14-RenderToTexture PROPERTIES XCODE_ATTRIBUTE_CONFIGURATIO
 create_target_launcher(14-RenderToTexture WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/14-RenderToTexture/")
 
 
+# Tutorial 15
+add_executable(15-Lightmaps
+	15-Lightmaps/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	
+	15-Lightmaps/TransformVertexShader.vertexshader
+	15-Lightmaps/TextureFragmentShaderLOD.fragmentshader
+)
+target_link_libraries(15-Lightmaps
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(15-Lightmaps PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/15-Lightmaps/")
+create_target_launcher(15-Lightmaps WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/15-Lightmaps/")
+
+
 
 #####################################################################
 
@@ -401,6 +426,11 @@ add_custom_command(
    TARGET 14-RenderToTexture POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/14-RenderToTexture${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/14-RenderToTexture/"
 )
+add_custom_command(
+   TARGET 15-Lightmaps POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/15-Lightmaps${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/15-Lightmaps/"
+)
+
 
 
 
