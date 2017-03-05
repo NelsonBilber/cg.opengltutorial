@@ -310,6 +310,35 @@ target_link_libraries(13-NormalMapping
 set_target_properties(13-NormalMapping PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/13-NormalMapping/")
 create_target_launcher(13-NormalMapping WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/13-NormalMapping/")
 
+# Tutorial 14
+add_executable(14-RenderToTexture
+	14-RenderToTexture/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	common/text2D.hpp
+	common/text2D.cpp
+	
+	14-RenderToTexture/StandardShadingRTT.vertexshader
+	14-RenderToTexture/StandardShadingRTT.fragmentshader
+	14-RenderToTexture/Passthrough.vertexshader
+	14-RenderToTexture/WobblyTexture.fragmentshader
+)
+target_link_libraries(14-RenderToTexture
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(14-RenderToTexture PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/14-RenderToTexture/")
+create_target_launcher(14-RenderToTexture WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/14-RenderToTexture/")
+
+
 
 #####################################################################
 
@@ -368,6 +397,12 @@ add_custom_command(
    TARGET 13-NormalMapping POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/13-NormalMapping${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/13-NormalMapping/"
 )
+add_custom_command(
+   TARGET 14-RenderToTexture POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/14-RenderToTexture${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/14-RenderToTexture/"
+)
+
+
 
 
 
