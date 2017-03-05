@@ -137,10 +137,33 @@ target_link_libraries(05-TextureCube
 set_target_properties(05-TextureCube PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/05-TextureCube/")
 create_target_launcher(05-TextureCube WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/05-TextureCube/")
 
+# Tutorial 6
+add_executable(06-KeyboardMouse
+	06-KeyboardMouse/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	
+	06-KeyboardMouse/TransformVertexShader.vertexshader
+	06-KeyboardMouse/TextureFragmentShader.fragmentshader
+)
+target_link_libraries(06-KeyboardMouse
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(06-KeyboardMouse PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/06-KeyboardMouse/")
+create_target_launcher(06-KeyboardMouse WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/06-KeyboardMouse/")
 
+
+#####################################################################
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
 SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$" )
+
+#####################################################################
 
 
 if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
@@ -163,6 +186,10 @@ add_custom_command(
 add_custom_command(
    TARGET 05-TextureCube POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/05-TextureCube${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/05-TextureCube/"
+)
+add_custom_command(
+   TARGET 06-KeyboardMouse POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/06-KeyboardMouse${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/06-KeyboardMouse/"
 )
 
 
