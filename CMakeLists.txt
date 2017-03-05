@@ -282,6 +282,34 @@ set_target_properties(11-Text PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR
 create_target_launcher(11-Text WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/11-Text/")
 
 
+# Tutorial 13
+add_executable(13-NormalMapping
+	13-NormalMapping/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	common/text2D.hpp
+	common/text2D.cpp
+	common/tangentspace.hpp
+	common/tangentspace.cpp
+	
+	13-NormalMapping/NormalMapping.vertexshader
+	13-NormalMapping/NormalMapping.fragmentshader
+)
+target_link_libraries(13-NormalMapping
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(13-NormalMapping PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/13-NormalMapping/")
+create_target_launcher(13-NormalMapping WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/13-NormalMapping/")
+
 
 #####################################################################
 
@@ -335,6 +363,10 @@ add_custom_command(
 add_custom_command(
    TARGET 11-Text POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/11-Text${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/11-Text/"
+)
+add_custom_command(
+   TARGET 13-NormalMapping POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/13-NormalMapping${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/13-NormalMapping/"
 )
 
 
