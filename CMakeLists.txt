@@ -158,6 +158,29 @@ set_target_properties(06-KeyboardMouse PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_
 create_target_launcher(06-KeyboardMouse WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/06-KeyboardMouse/")
 
 
+# Tutorial 7
+add_executable(07-ModelLoading
+	07-ModelLoading/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+
+	07-ModelLoading/TransformVertexShader.vertexshader
+	07-ModelLoading/TextureFragmentShader.fragmentshader
+)
+target_link_libraries(07-ModelLoading
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(07-ModelLoading PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/07-ModelLoading/")
+create_target_launcher(07-ModelLoading WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/07-ModelLoading/")
+
+
 #####################################################################
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
@@ -191,7 +214,10 @@ add_custom_command(
    TARGET 06-KeyboardMouse POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/06-KeyboardMouse${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/06-KeyboardMouse/"
 )
-
+add_custom_command(
+   TARGET 07-ModelLoading POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/07-ModelLoading${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/07-ModelLoading/"
+)
 
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
