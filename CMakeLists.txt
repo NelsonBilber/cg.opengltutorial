@@ -180,6 +180,28 @@ target_link_libraries(07-ModelLoading
 set_target_properties(07-ModelLoading PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/07-ModelLoading/")
 create_target_launcher(07-ModelLoading WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/07-ModelLoading/")
 
+# Tutorial 8
+add_executable(08-BasicShading
+	08-BasicShading/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	
+	08-BasicShading/StandardShading.vertexshader
+	08-BasicShading/StandardShading.fragmentshader
+)
+target_link_libraries(08-BasicShading
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(08-BasicShading PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/08-BasicShading/")
+create_target_launcher(08-BasicShading WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/08-BasicShading/")
+
 
 #####################################################################
 
@@ -217,6 +239,10 @@ add_custom_command(
 add_custom_command(
    TARGET 07-ModelLoading POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/07-ModelLoading${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/07-ModelLoading/"
+)
+add_custom_command(
+   TARGET 08-BasicShading POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/08-BasicShading${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/08-BasicShading/"
 )
 
 
