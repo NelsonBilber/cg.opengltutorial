@@ -202,6 +202,31 @@ target_link_libraries(08-BasicShading
 set_target_properties(08-BasicShading PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/08-BasicShading/")
 create_target_launcher(08-BasicShading WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/08-BasicShading/")
 
+# Tutorial 9
+
+add_executable(09-VertexBufferObject
+	09-VertexBufferObject/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	
+	09-VertexBufferObject/StandardShading.vertexshader
+	09-VertexBufferObject/StandardShading.fragmentshader
+)
+target_link_libraries(09-VertexBufferObject
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(09-VertexBufferObject PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/09-VertexBufferObject/")
+create_target_launcher(09-VertexBufferObject WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/09-VertexBufferObject/")
+
 
 #####################################################################
 
@@ -244,6 +269,11 @@ add_custom_command(
    TARGET 08-BasicShading POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/08-BasicShading${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/08-BasicShading/"
 )
+add_custom_command(
+   TARGET 09-VertexBufferObject POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/09-VertexBufferObject${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/09-VertexBufferObject/"
+)
+
 
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
