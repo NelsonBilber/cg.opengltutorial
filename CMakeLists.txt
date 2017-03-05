@@ -228,6 +228,32 @@ set_target_properties(09-VertexBufferObject PROPERTIES XCODE_ATTRIBUTE_CONFIGURA
 create_target_launcher(09-VertexBufferObject WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/09-VertexBufferObject/")
 
 
+# Tutorial 10
+add_executable(10-Transparency
+	10-Transparency/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	
+	10-Transparency/StandardShading.vertexshader
+	10-Transparency/StandardTransparentShading.fragmentshader
+)
+target_link_libraries(10-Transparency
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(10-Transparency PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/10-Transparency/")
+create_target_launcher(10-Transparency WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/10-Transparency/")
+
+
+
 #####################################################################
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
@@ -272,6 +298,10 @@ add_custom_command(
 add_custom_command(
    TARGET 09-VertexBufferObject POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/09-VertexBufferObject${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/09-VertexBufferObject/"
+)
+add_custom_command(
+   TARGET 10-Transparency POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/10-Transparency${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/10-Transparency/"
 )
 
 
