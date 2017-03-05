@@ -252,6 +252,35 @@ target_link_libraries(10-Transparency
 set_target_properties(10-Transparency PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/10-Transparency/")
 create_target_launcher(10-Transparency WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/10-Transparency/")
 
+# Tutorial 11
+add_executable(11-Text
+	11-Text/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	common/text2D.hpp
+	common/text2D.cpp
+
+	11-Text/StandardShading.vertexshader
+	11-Text/StandardShading.fragmentshader
+	11-Text/TextVertexShader.vertexshader
+	11-Text/TextVertexShader.fragmentshader
+
+)
+target_link_libraries(11-Text
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(11-Text PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/11-Text/")
+create_target_launcher(11-Text WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/11-Text/")
+
 
 
 #####################################################################
@@ -302,6 +331,10 @@ add_custom_command(
 add_custom_command(
    TARGET 10-Transparency POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/10-Transparency${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/10-Transparency/"
+)
+add_custom_command(
+   TARGET 11-Text POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/11-Text${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/11-Text/"
 )
 
 
