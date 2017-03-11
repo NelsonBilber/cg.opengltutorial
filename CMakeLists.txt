@@ -390,6 +390,55 @@ target_link_libraries(16-ShadowMapping
 set_target_properties(16-ShadowMapping PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/16-ShadowMapping/")
 create_target_launcher(16-ShadowMapping WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/16-ShadowMapping/")
 
+# Tutorial 17
+add_executable(17-Rotations
+	17-Rotations/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	common/quaternion_utils.cpp
+	common/quaternion_utils.hpp
+	
+	17-Rotations/StandardShading.vertexshader
+	17-Rotations/StandardShading.fragmentshader
+)
+target_link_libraries(17-Rotations
+	${ALL_LIBS}
+	ANTTWEAKBAR_116_OGLCORE_GLFW
+)
+# Xcode and Visual working directories
+set_target_properties(17-Rotations PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/17-Rotations/")
+create_target_launcher(17-Rotations WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/17-Rotations/")
+
+# Tutorial 18
+add_executable(18-Particles
+	18-Particles/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/controls.cpp
+	common/controls.hpp
+	18-Particles/Particle.fragmentshader
+	18-Particles/Particle.vertexshader
+)
+
+target_link_libraries(18-Particles
+	${ALL_LIBS}
+)
+
+# Xcode and Visual working directories
+set_target_properties(18-Particles PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/18-Particles/")
+create_target_launcher(18-Particles WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/18-Particles/")
+
+
 
 
 #####################################################################
@@ -461,7 +510,14 @@ add_custom_command(
    TARGET 16-ShadowMapping POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/16-ShadowMapping${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/16-ShadowMapping/"
 )
-
+add_custom_command(
+   TARGET 17-Rotations POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/17-Rotations${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/17-Rotations/"
+)
+add_custom_command(
+   TARGET 18-Particles POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/18-Particles${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/18-Particles/"
+)
 
 
 
