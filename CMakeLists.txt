@@ -364,6 +364,33 @@ set_target_properties(15-Lightmaps PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUIL
 create_target_launcher(15-Lightmaps WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/15-Lightmaps/")
 
 
+# Tutorial 16
+add_executable(16-ShadowMapping
+	16-ShadowMapping/main.cpp
+	common/shader.cpp
+	common/shader.hpp
+	common/controls.cpp
+	common/controls.hpp
+	common/texture.cpp
+	common/texture.hpp
+	common/objloader.cpp
+	common/objloader.hpp
+	common/vboindexer.cpp
+	common/vboindexer.hpp
+	
+	16-ShadowMapping/ShadowMapping_SimpleVersion.vertexshader
+	16-ShadowMapping/ShadowMapping_SimpleVersion.fragmentshader
+	16-ShadowMapping/DepthRTT.vertexshader
+	16-ShadowMapping/DepthRTT.fragmentshader
+)
+target_link_libraries(16-ShadowMapping
+	${ALL_LIBS}
+)
+# Xcode and Visual working directories
+set_target_properties(16-ShadowMapping PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/16-ShadowMapping/")
+create_target_launcher(16-ShadowMapping WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/16-ShadowMapping/")
+
+
 
 #####################################################################
 
@@ -430,7 +457,10 @@ add_custom_command(
    TARGET 15-Lightmaps POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/15-Lightmaps${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/15-Lightmaps/"
 )
-
+add_custom_command(
+   TARGET 16-ShadowMapping POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/16-ShadowMapping${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/16-ShadowMapping/"
+)
 
 
 
