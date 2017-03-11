@@ -16,3 +16,6 @@ The source code in this repository is the result of study from [http://www.openg
 * 13 - Normal Mapping
 * 14 - Render to texture
 * 15 - Lightmaps
+* 16 - Shadow Mapping
+* 17 - Rorations
+* 18 - Particles
